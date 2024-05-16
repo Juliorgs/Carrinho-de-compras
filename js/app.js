@@ -15,26 +15,36 @@ function adicionar(){
 
     let quantidade = document.getElementById('quantidade').value;
 
-    let preco = quantidade * valorUnitario;
+    if(quantidade <= 0 ){
+      alert('Digite uma quantidade válida');
+      limparQuantidade();
 
-    let carrinho = document.getElementById('lista-produtos');
+    }else{
+      let preco = quantidade * valorUnitario;
 
-    carrinho.innerHTML = carrinho.innerHTML + `<section class="carrinho__produtos__produto">
-    <span class="texto-azul">${quantidade}x</span> ${nomeProduto} <span class="texto-azul">R$${preco}</span>
-  </section>`;
+      let carrinho = document.getElementById('lista-produtos');
+  
+      carrinho.innerHTML = carrinho.innerHTML + `<section class="carrinho__produtos__produto">
+      <span class="texto-azul">${quantidade}x</span> ${nomeProduto} <span class="texto-azul">R$${preco}</span>
+      </section>`;
+  
+      totalGeral = totalGeral + preco;
+  
+      let campoTotal = document.getElementById('valor-total');
+      campoTotal.textContent = `R$${totalGeral}`;
 
-  totalGeral = totalGeral + preco;
-
-  let campoTotal = document.getElementById('valor-total');
-  campoTotal.textContent = `R$${totalGeral}`;
-
-  document.getElementById('quantidade').value = '';
-
+      limparQuantidade();
+    }
 }
 
 function limpar(){
     totalGeral = 0;
     document.getElementById('lista-produtos').innerHTML = '';
     document.getElementById('valor-total').textContent = 'R$0';
+    limparQuantidade();
 
+}
+
+function limparQuantidade(){
+  document.getElementById('quantidade').value = '';
 }
